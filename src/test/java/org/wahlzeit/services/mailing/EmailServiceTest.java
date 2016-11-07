@@ -21,6 +21,7 @@ package org.wahlzeit.services.mailing;
 
 import junit.framework.TestCase;
 import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.main.ServiceMain;
 
 /**
  *
@@ -48,6 +49,8 @@ public class EmailServiceTest extends TestCase {
 		emailService = EmailServiceManager.getDefaultService();
 
 		validAddress = EmailAddress.getFromString("test@test.de");
+
+		ServiceMain.getInstance().switchProductionMode(false);
 	}
 
 	/**
