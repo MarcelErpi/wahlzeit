@@ -51,7 +51,7 @@ public class SeriesPhotoFactory extends PhotoFactory{
      */
     public static synchronized SeriesPhotoFactory getInstance() {
         if (instance == null) {
-            log.config(LogBuilder.createSystemMessage().addAction("setting VideoGamesPhotoFactory").toString());
+            log.config(LogBuilder.createSystemMessage().addAction("setting SeriesPhotoFactory").toString());
             setInstance(new SeriesPhotoFactory());
         }
 
