@@ -1,12 +1,14 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Subclass;
+
 import java.io.Serializable;
 
 /**
  *  SeriesPhoto
  *
  */
-
+@Subclass
 public class SeriesPhoto extends Photo implements Serializable {
 
     private int yearOfFirstEpisode;
