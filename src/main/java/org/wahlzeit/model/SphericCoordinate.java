@@ -45,8 +45,10 @@ public class SphericCoordinate implements Coordinate{
      * @methodtype assertion
      */
     private void checkLatLon(double latitude, double longitude) {
-        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || Double.isNaN(latitude) || Double.isNaN(longitude))
+        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || Double.isNaN(latitude) || Double.isNaN(longitude)){
             throw new IllegalArgumentException();
+        }
+
     }
 
     /**
@@ -76,7 +78,7 @@ public class SphericCoordinate implements Coordinate{
     @Override
     public double getX() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
+        return this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.cos(Math.toRadians(this.latitude));
     }
 
     /**
@@ -85,7 +87,7 @@ public class SphericCoordinate implements Coordinate{
     @Override
     public double getY() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
+        return this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.sin(Math.toRadians(this.latitude));
     }
 
     /**
@@ -94,7 +96,7 @@ public class SphericCoordinate implements Coordinate{
     @Override
     public double getZ() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.cos(this.longitude);
+        return this.radius * Math.cos(Math.toRadians(this.longitude));
     }
 
     /**
