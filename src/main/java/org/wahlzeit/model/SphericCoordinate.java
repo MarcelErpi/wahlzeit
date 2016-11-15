@@ -10,7 +10,7 @@ public class SphericCoordinate implements Coordinate{
     private double latitude;
     private double longitude;
     private double radius;
-    private final double EARTH_RADIUS = 6371.0d;
+    private final double EARTH_RADIUS_KM = 6371.0d;
 
     /**
      * @methodtype constructor
@@ -18,7 +18,7 @@ public class SphericCoordinate implements Coordinate{
     public SphericCoordinate() {
         this.latitude = 0.0d;
         this.longitude = 0.0d;
-        this.radius = EARTH_RADIUS;
+        this.radius = EARTH_RADIUS_KM;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SphericCoordinate implements Coordinate{
         checkLatLon(latitude, longitude);
         this.latitude = latitude;
         this.longitude = longitude;
-        this.radius = EARTH_RADIUS;
+        this.radius = EARTH_RADIUS_KM;
     }
 
     /**
@@ -70,6 +70,27 @@ public class SphericCoordinate implements Coordinate{
      */
     public double getRadius() {
         return this.radius;
+    }
+
+    /**
+     * @methodtype set
+     */
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @methodtype set
+     */
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @methodtype set
+     */
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     /**
