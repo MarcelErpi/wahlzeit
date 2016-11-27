@@ -5,7 +5,7 @@ package org.wahlzeit.model;
  *
  */
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 
     private double latitude;
     private double longitude;
@@ -119,25 +119,5 @@ public class SphericCoordinate implements Coordinate{
         // see http://mathinsight.org/spherical_coordinates
         return this.radius * Math.cos(Math.toRadians(this.longitude));
     }
-
-    /**
-     * @methodtype get
-     */
-    public double getDistance(Coordinate coordinate) {
-        if(coordinate == null){
-            throw new IllegalArgumentException();
-        }
-
-        // Pythagoras' theorem
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        double x2 = coordinate.getX();
-        double y2 = coordinate.getY();
-        double z2 = coordinate.getZ();
-        return Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2) + Math.pow(z2 - z, 2));
-    }
-
-
-
+    
 }

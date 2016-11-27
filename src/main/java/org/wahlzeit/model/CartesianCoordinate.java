@@ -5,7 +5,7 @@ package org.wahlzeit.model;
  *
  */
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 
     private double x;
     private double y;
@@ -69,25 +69,6 @@ public class CartesianCoordinate implements Coordinate{
      */
     public void setZ(double z) {
         this.z = z;
-    }
-
-    /**
-     * @methodtype get
-     */
-    @Override
-    public double getDistance(Coordinate cd) {
-        if(cd == null){
-            throw new IllegalArgumentException();
-        }
-
-        // Pythagoras' theorem
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        double x2 = cd.getX();
-        double y2 = cd.getY();
-        double z2 = cd.getZ();
-        return Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2) + Math.pow(z2 - z, 2));
     }
 
 }
