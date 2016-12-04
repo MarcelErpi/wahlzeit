@@ -24,9 +24,17 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype constructor
      */
     public CartesianCoordinate(double x, double y, double z) {
+        // Precondition
+        if(!isValidDoubleValue(x) || !isValidDoubleValue(y) || !isValidDoubleValue(z)){
+            throw new IllegalArgumentException("Parameter is not a valid double value");
+        }
+
         this.x = x;
         this.y = y;
         this.z = z;
+
+        // Postcondition
+        assertClassInvariants();
     }
 
     /**
@@ -69,6 +77,15 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     public void setZ(double z) {
         this.z = z;
+    }
+
+    /**
+     * @methodtype assertion
+     */
+    protected void assertClassInvariants() {
+        assert isValidDoubleValue(x);
+        assert isValidDoubleValue(y);
+        assert isValidDoubleValue(z);
     }
 
 }

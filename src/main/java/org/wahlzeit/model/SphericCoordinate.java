@@ -25,20 +25,32 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype constructor
      */
     public SphericCoordinate(double latitude, double longitude){
+
+        // Preconditions
         checkLatLon(latitude, longitude);
+
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = EARTH_RADIUS_KM;
+
+        // Postcondition
+        assertClassInvariants();
     }
 
     /**
      * @methodtype constructor
      */
     public SphericCoordinate(double latitude, double longitude, double radius) {
+
+        // Preconditions
         checkLatLon(latitude, longitude);
+
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+
+        // Postcondition
+        assertClassInvariants();
     }
 
     /**
@@ -46,7 +58,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     private void checkLatLon(double latitude, double longitude) {
         if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || Double.isNaN(latitude) || Double.isNaN(longitude)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid Latitude or Longitude");
         }
 
     }
@@ -99,7 +111,14 @@ public class SphericCoordinate extends AbstractCoordinate{
     @Override
     public double getX() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.cos(Math.toRadians(this.latitude));
+        double result = this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.cos(Math.toRadians(this.latitude));
+
+        // Postcondition
+        assert isValidDoubleValue(result);
+        assertClassInvariants();
+
+        return result;
+
     }
 
     /**
@@ -108,7 +127,13 @@ public class SphericCoordinate extends AbstractCoordinate{
     @Override
     public double getY() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.sin(Math.toRadians(this.latitude));
+        double result = this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.sin(Math.toRadians(this.latitude));
+
+        // Postcondition
+        assert isValidDoubleValue(result);
+        assertClassInvariants();
+
+        return result;
     }
 
     /**
@@ -117,7 +142,23 @@ public class SphericCoordinate extends AbstractCoordinate{
     @Override
     public double getZ() {
         // see http://mathinsight.org/spherical_coordinates
-        return this.radius * Math.cos(Math.toRadians(this.longitude));
+        double result = this.radius * Math.cos(Math.toRadians(this.longitude));
+
+        // Postcondition
+        assert isValidDoubleValue(result);
+        assertClassInvariants();
+
+        return result;
+    }
+
+    /**
+     * @methodtype assertion
+     */
+    protected void assertClassInvariants() {
+        assert isValidDoubleValue(latitude);
+        assert isValidDoubleValue(longitude);
+        assert isValidDoubleValue(radius);
+        assert radius > 0;
     }
     
 }
