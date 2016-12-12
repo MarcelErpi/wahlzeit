@@ -17,7 +17,11 @@ public class SeriesPhotoManager extends PhotoManager{
     /**
      * @methodtype command
      */
-    public Set<SeriesPhoto> findPhotosByGenre(SeriesGenre genre) {
+    public Set<SeriesPhoto> findPhotosByGenre(SeriesGenre genre) throws IllegalArgumentException{
+        if (genre == null){
+            throw new IllegalArgumentException("Genre must not be null!");
+        }
+
         Set<SeriesPhoto> result = new HashSet<SeriesPhoto>();
         readObjects(result, SeriesPhoto.class, SeriesPhoto.GENRE, genre);
 

@@ -27,7 +27,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate(double latitude, double longitude){
 
         // Preconditions
-        checkLatLon(latitude, longitude);
+        assertCheckLatLon(latitude, longitude);
 
         this.latitude = latitude;
         this.longitude = longitude;
@@ -43,7 +43,8 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate(double latitude, double longitude, double radius) {
 
         // Preconditions
-        checkLatLon(latitude, longitude);
+        assertCheckLatLon(latitude, longitude);
+        assertIsValidRadius(radius);
 
         this.latitude = latitude;
         this.longitude = longitude;
@@ -56,8 +57,11 @@ public class SphericCoordinate extends AbstractCoordinate{
     /**
      * @methodtype assertion
      */
-    private void checkLatLon(double latitude, double longitude) {
-        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || Double.isNaN(latitude) || Double.isNaN(longitude)){
+    private void assertCheckLatLon(double latitude, double longitude) {
+        assertIsValidDoubleValue(latitude);
+        assertIsValidDoubleValue(longitude);
+
+        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || Double.isNaN(latitude) || Double.isNaN(longitude) ){
             throw new IllegalArgumentException("Invalid Latitude or Longitude");
         }
 
@@ -88,6 +92,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setLatitude(double latitude) {
+        assertCheckLatLon(latitude, 0);
         this.latitude = latitude;
     }
 
@@ -95,6 +100,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setLongitude(double longitude) {
+        assertCheckLatLon(0, longitude);
         this.longitude = longitude;
     }
 
@@ -102,6 +108,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setRadius(double radius) {
+        assertIsValidRadius(radius);
         this.radius = radius;
     }
 
@@ -114,7 +121,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         double result = this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.cos(Math.toRadians(this.latitude));
 
         // Postcondition
-        assert isValidDoubleValue(result);
+        assertIsValidDoubleValue(result);
         assertClassInvariants();
 
         return result;
@@ -130,7 +137,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         double result = this.radius * Math.sin(Math.toRadians(this.longitude)) * Math.sin(Math.toRadians(this.latitude));
 
         // Postcondition
-        assert isValidDoubleValue(result);
+        assertIsValidDoubleValue(result);
         assertClassInvariants();
 
         return result;
@@ -145,7 +152,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         double result = this.radius * Math.cos(Math.toRadians(this.longitude));
 
         // Postcondition
-        assert isValidDoubleValue(result);
+        assertIsValidDoubleValue(result);
         assertClassInvariants();
 
         return result;
@@ -155,10 +162,21 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype assertion
      */
     protected void assertClassInvariants() {
-        assert isValidDoubleValue(latitude);
-        assert isValidDoubleValue(longitude);
-        assert isValidDoubleValue(radius);
+        assertIsValidDoubleValue(latitude);
+        assertIsValidDoubleValue(longitude);
+        assertIsValidDoubleValue(radius);
         assert radius > 0;
     }
-    
+
+    /**
+     * @methodtype assertion
+     */
+
+    protected void assertIsValidRadius(double radius){
+        assertIsValidDoubleValue(radius);
+        if (radius < 0){
+            throw new IllegalArgumentException("Radius cannot be negative!");
+        }
+    }
+
 }

@@ -31,13 +31,9 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     public double getDistance(Coordinate cd) {
         // Preconditions
+        assertCoordinateIsNotNull(cd);
+        assertIsValidCoordinate(cd);
 
-        if(cd == null){
-            throw new IllegalArgumentException("Parameter must not be null!");
-        }
-        if(!isAbsCoordinateValid(cd)){
-            throw new IllegalArgumentException("Coordinate is not valid!");
-        }
 
         AbstractCoordinate ccd = (AbstractCoordinate) cd;
 
@@ -51,9 +47,9 @@ public abstract class AbstractCoordinate implements Coordinate{
         double result = Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2) + Math.pow(z2 - z, 2));
 
         // Postconditions
-        assert isValidDoubleValue(result);
+        assertIsValidDoubleValue(result);
         assert result >= 0: "Result of getDistance is negative!";
-        assert isAbsCoordinateValid(cd);
+        assertIsAbsCoordinateValid(cd);
         assertClassInvariants();
 
 
@@ -67,11 +63,8 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     public boolean isEqual(Coordinate cd) {
         // Preconditions
-        if (cd == null){
-            throw new IllegalArgumentException("Parameter must not be null!");
-        }if(!isAbsCoordinateValid(cd)){
-            throw new IllegalArgumentException("Coordinate is not valid!");
-        }
+        assertCoordinateIsNotNull(cd);
+        assertIsValidCoordinate(cd);
 
 
         boolean isEqual = false;
@@ -85,7 +78,7 @@ public abstract class AbstractCoordinate implements Coordinate{
         }
 
         // Postconditions
-        assert isAbsCoordinateValid(cd);
+        assertIsAbsCoordinateValid(cd);
         assertClassInvariants();
 
         return isEqual;
@@ -94,24 +87,39 @@ public abstract class AbstractCoordinate implements Coordinate{
     /**
      * @methodtype query
      */
-    protected boolean isValidDoubleValue(double value) {
-        if(Double.isNaN(value) || Double.isInfinite(value))
-            return false;
-        return true;
+    protected void assertIsValidDoubleValue(double value) {
+        if(Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException("Value is not valid!");
+        }
     }
 
     /**
      * @methodtype query
      */
-    protected boolean isAbsCoordinateValid(Coordinate cd) {
+    protected void assertIsAbsCoordinateValid(Coordinate cd) {
         AbstractCoordinate absCd = (AbstractCoordinate) cd;
-        boolean validX = isValidDoubleValue(absCd.getX());
-        boolean validY = isValidDoubleValue(absCd.getY());
-        boolean validZ = isValidDoubleValue(absCd.getZ());
+        assertIsValidDoubleValue(absCd.getX());
+        assertIsValidDoubleValue(absCd.getY());
+        assertIsValidDoubleValue(absCd.getZ());
+    }
 
-        if(validX && validY && validZ)
-            return true;
-        return false;
+    /**
+     * @methodtype assertion
+     */
+    protected void assertCoordinateIsNotNull(Coordinate cd) {
+        if (cd == null){
+            throw new IllegalArgumentException("Coordinate must not be null!");
+        }
+    }
+
+    /**
+     * @methodtype assertion
+     */
+    protected void assertIsValidCoordinate(Coordinate cd) {
+        AbstractCoordinate absCd = (AbstractCoordinate) cd;
+        assertIsValidDoubleValue(absCd.getX());
+        assertIsValidDoubleValue(absCd.getY());
+        assertIsValidDoubleValue(absCd.getZ());
     }
 
     /**

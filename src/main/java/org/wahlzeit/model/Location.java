@@ -16,6 +16,7 @@ public class Location implements Serializable {
      * @methodtype constructor
      */
     public Location(Coordinate coordinate) {
+        assertCoordinateIsNotNull(coordinate);
         this.coordinate = coordinate;
     }
 
@@ -30,7 +31,13 @@ public class Location implements Serializable {
      * @methodtype set
      */
     public void setCoordinate(Coordinate newCoordinate) {
+        assertCoordinateIsNotNull(newCoordinate);
         this.coordinate = newCoordinate;
     }
 
+    protected void assertCoordinateIsNotNull(Coordinate cd) {
+        if (cd == null){
+            throw new IllegalArgumentException("Coordinate must not be null!");
+        }
+    }
 }
