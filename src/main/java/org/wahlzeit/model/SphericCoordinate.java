@@ -7,15 +7,48 @@ package org.wahlzeit.model;
 
 public class SphericCoordinate extends AbstractCoordinate{
 
-    private double latitude;
-    private double longitude;
-    private double radius;
+    private final double latitude;
+    private final double longitude;
+    private final double radius;
     private final double EARTH_RADIUS_KM = 6371.0d;
+
+
+    /**
+     * @methodtype factory method
+     */
+    public static SphericCoordinate getInstance() {
+        return getInstance(0.f, 0.f, 6371.f);
+    }
+
+    /**
+     * @methodtype factory method
+     */
+    public static SphericCoordinate getInstance(double latitude, double longitude) {
+        return getInstance(latitude, longitude, 6371.f);
+    }
+
+    /**
+     * @methodtype factory method
+     *
+     */
+
+    public static SphericCoordinate getInstance(double latitude, double longitude, double radius) {
+        SphericCoordinate tmp = new SphericCoordinate(latitude, longitude, radius);
+        AbstractCoordinate res = instances.get(tmp.hashCode());
+        if(res == null || !res.equals(tmp) || !(res instanceof SphericCoordinate)) {
+            instances.put(tmp.hashCode(), tmp);
+            res = tmp;
+        }
+
+        return (SphericCoordinate) res;
+    }
+
+
 
     /**
      * @methodtype constructor
      */
-    public SphericCoordinate() {
+    private SphericCoordinate() {
         this.latitude = 0.0d;
         this.longitude = 0.0d;
         this.radius = EARTH_RADIUS_KM;
@@ -24,7 +57,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     /**
      * @methodtype constructor
      */
-    public SphericCoordinate(double latitude, double longitude){
+    private SphericCoordinate(double latitude, double longitude){
 
         // Preconditions
         assertCheckLatLon(latitude, longitude);
@@ -40,7 +73,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     /**
      * @methodtype constructor
      */
-    public SphericCoordinate(double latitude, double longitude, double radius) {
+    private SphericCoordinate(double latitude, double longitude, double radius) {
 
         // Preconditions
         assertCheckLatLon(latitude, longitude);
@@ -86,30 +119,6 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     public double getRadius() {
         return this.radius;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setLatitude(double latitude) {
-        assertCheckLatLon(latitude, 0);
-        this.latitude = latitude;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setLongitude(double longitude) {
-        assertCheckLatLon(0, longitude);
-        this.longitude = longitude;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setRadius(double radius) {
-        assertIsValidRadius(radius);
-        this.radius = radius;
     }
 
     /**

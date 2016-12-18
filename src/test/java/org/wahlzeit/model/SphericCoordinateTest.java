@@ -20,9 +20,9 @@ public class SphericCoordinateTest {
 
     @Before
     public void setUp() {
-        cd0 = new SphericCoordinate();
-        cd1 = new SphericCoordinate(70.0d, 90.0d);
-        cd2 = new SphericCoordinate(-50.0d, 100.0d);
+        cd0 = SphericCoordinate.getInstance();
+        cd1 = SphericCoordinate.getInstance(70.0d, 90.0d);
+        cd2 = SphericCoordinate.getInstance(-50.0d, 100.0d);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class SphericCoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorIllegalLatLng() {
-        SphericCoordinate cd = new SphericCoordinate(999.9d, 1000.0d);
+        SphericCoordinate cd = SphericCoordinate.getInstance(999.9d, 1000.0d);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class SphericCoordinateTest {
         double x = cd1.getX();
         double y = cd1.getY();
         double z = cd1.getZ();
-        CartesianCoordinate cd = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate cd = CartesianCoordinate.getInstance(x, y, z);
         double res = cd1.getDistance(cd);
         assertEquals(0.0, res, epsilon);
     }
@@ -82,7 +82,7 @@ public class SphericCoordinateTest {
         double x = cd1.getX();
         double y = cd1.getY();
         double z = cd1.getZ();
-        CartesianCoordinate cd = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate cd = CartesianCoordinate.getInstance(x, y, z);
         double res = cd2.getDistance(cd);
         assertEquals(11006.91942, res, epsilon);
     }

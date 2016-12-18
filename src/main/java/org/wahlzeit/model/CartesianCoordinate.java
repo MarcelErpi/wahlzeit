@@ -7,14 +7,36 @@ package org.wahlzeit.model;
 
 public class CartesianCoordinate extends AbstractCoordinate{
 
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
+
+    /**
+     * @methodtype factory method
+     */
+    public static CartesianCoordinate getInstance() {
+        return getInstance(0.f, 0.f, 0.f);
+    }
+
+    /**
+     * @methodtype factory method
+     */
+    public static CartesianCoordinate getInstance(double x, double y, double z) {
+        CartesianCoordinate tmp = new CartesianCoordinate(x, y, z);
+        AbstractCoordinate res = instances.get(tmp.hashCode());
+        if(res == null || !res.equals(tmp) || !(res instanceof CartesianCoordinate)) {
+            instances.put(tmp.hashCode(), tmp);
+            res = tmp;
+
+        }
+
+        return (CartesianCoordinate) res;
+    }
 
     /**
      * @methodtype constructor
      */
-    public CartesianCoordinate() {
+    private CartesianCoordinate() {
         this.x = 0.0d;
         this.y = 0.0d;
         this.z = 0.0d;
@@ -23,7 +45,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
     /**
      * @methodtype constructor
      */
-    public CartesianCoordinate(double x, double y, double z) {
+    private CartesianCoordinate(double x, double y, double z) {
         // Precondition
         assertIsValidDoubleValue(x);
         assertIsValidDoubleValue(y);
@@ -56,27 +78,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     public double getZ() {
         return this.z;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
-     * @methodtype set
-     */
-    public void setZ(double z) {
-        this.z = z;
     }
 
     /**

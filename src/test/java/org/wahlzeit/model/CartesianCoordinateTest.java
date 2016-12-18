@@ -20,9 +20,9 @@ public class CartesianCoordinateTest {
 
     @Before
     public void setUp() {
-        cd0 = new CartesianCoordinate();
-        cd1 = new CartesianCoordinate(10.0d, 20.0d, 30.0d);
-        cd2 = new CartesianCoordinate(-100.0d, 200.0d, 300.0d);
+        cd0 = CartesianCoordinate.getInstance();
+        cd1 = CartesianCoordinate.getInstance(10.0d, 20.0d, 30.0d);
+        cd2 = CartesianCoordinate.getInstance(-100.0d, 200.0d, 300.0d);
     }
 
     @Test
