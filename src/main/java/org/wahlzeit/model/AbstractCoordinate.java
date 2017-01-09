@@ -7,6 +7,13 @@ import java.util.HashMap;
  *
  */
 
+@PatternInstance(
+        patternName = "Template Method",
+        participants = {
+                "Abstract Class"
+        }
+)
+
 
 public abstract class AbstractCoordinate implements Coordinate{
 

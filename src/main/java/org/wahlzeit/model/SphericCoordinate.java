@@ -5,6 +5,13 @@ package org.wahlzeit.model;
  *
  */
 
+@PatternInstance(
+        patternName = "Template Method",
+        participants = {
+                "Abstract Class", "Concrete Class"
+        }
+)
+
 public class SphericCoordinate extends AbstractCoordinate{
 
     private final double latitude;

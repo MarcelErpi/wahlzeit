@@ -9,6 +9,14 @@ import java.util.Calendar;
  *  SeriesPhoto
  *
  */
+
+@PatternInstance(
+        patternName = "Abstract Factory",
+        participants = {
+                "Abstract Factory", "Concrete Product"
+        }
+)
+
 @Subclass
 public class SeriesPhoto extends Photo implements Serializable {
 
