@@ -34,22 +34,15 @@ public class SeriesPhotoFactory extends PhotoFactory{
     /**
      * @methodtype factory
      */
-    public SeriesPhoto createPhoto() {
-        return new SeriesPhoto();
+    public SeriesPhoto createPhoto(Series series) {
+        return new SeriesPhoto(series);
     }
 
     /**
      * @methodtype factory
      */
-    public SeriesPhoto createPhoto(PhotoId id) {
-        return new SeriesPhoto(id);
-    }
-
-    /**
-     * @methodtype factory
-     */
- 	public SeriesPhoto createPhoto(PhotoId id, int yearOfFirstEpisode, SeriesGenre genre, int seasons) {
-        return new SeriesPhoto(id , yearOfFirstEpisode, genre, seasons);
+    public SeriesPhoto createPhoto(PhotoId id, Series series) {
+        return new SeriesPhoto(id, series);
     }
 
 
